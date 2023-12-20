@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDevDto } from './dto/create-dev.dto';
 import { UpdateDevDto } from './dto/update-dev.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Dev } from './schemas/dev.schema';
+import { Model } from 'mongoose';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class DevsService {
-  create(createDevDto: CreateDevDto) {
-    return 'This action adds a new dev';
+  constructor(@InjectModel(Dev.name) private devModel: Model<Dev>) {}
+  async create(createDevDto: CreateDevDto) {
+    try {
+      const dev = new this.devModel(createDevDto);
+      await dev.save();
+    } catch (error) {
+      throw error;
+    }
   }
 
-  findAll() {
-    return `This action returns all devs`;
+  async findAll(): Promise<Dev[]> {
+    return await this.devModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} dev`;
+  async findOne(id: ObjectId): Promise<Dev> {
+    return await this.devModel.findById(id);
   }
 
-  update(id: number, updateDevDto: UpdateDevDto) {
-    return `This action updates a #${id} dev`;
+  async update(id: ObjectId, updateDevDto: UpdateDevDto): Promise<any> {
+    return await this.devModel.updateOne(id, updateDevDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} dev`;
+  async remove(id: ObjectId): Promise<any> {
+    return await this.devModel.deleteOne(id);
   }
 }
