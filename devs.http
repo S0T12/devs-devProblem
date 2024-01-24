@@ -1,0 +1,28 @@
+### Create dev
+POST http://localhost:3000/devs
+Content-Type: application/json
+
+{
+    "title": "hello",
+    "description": "world",
+    "creator": "john_doe",
+    "ideaID": "6595c53ae8dc64103ac3d536"
+}
+
+### Get All
+GET http://localhost:3000/devs
+
+### Get dev by ID
+GET http://localhost:3000/devs/6599d39f73af24af7b9a4a3c
+
+### Update dev 
+PATCH http://localhost:3000/devs/6599d39f73af24af7b9a4a3c
+Content-Type: application/json
+
+{
+  "title": "Updated",
+  "description": "johhhhhhhhhhhhhhhhn"
+}
+
+### Delete dev
+DELETE http://localhost:3000/devs/6599d39f73af24af7b9a4a3c
