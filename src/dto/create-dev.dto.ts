@@ -11,5 +11,5 @@ export class CreateDevDto {
   creator: string;
 
   @IsNumber()
-  idea: number;
+  ideaID: number;
 }
