@@ -25,7 +25,7 @@ export class DevsService {
       const idea = await firstValueFrom(
         this.ideasClient.send<ObjectId>('findOneIdea', createDevDto.ideaID),
       );
-      if (!idea) return new BadRequestException('User Not Found');
+      if (!idea) return new BadRequestException('Idea Not Found');
 
       const dev = new this.devModel(createDevDto);
       return await dev.save();
